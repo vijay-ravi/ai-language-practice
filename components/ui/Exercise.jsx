@@ -186,19 +186,24 @@ export default function Exercise() {
     <Card className="mx-auto sm:w-[80%] border-zinc-200 shadow-lg">
       <Toaster position="top-center" reverseOrder={false} />
       <CardHeader>
-        <h2 className="text-2xl font-bold">Fill in the Conjugations</h2>
+        <h2 className="sm:text-2xl text-xl font-bold">
+          Fill in the Conjugations
+        </h2>
       </CardHeader>
       <CardContent>
         <p className="text-gray-500 dark:text-gray-400">
           Select a language and a situation, then click on Generate button.
         </p>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-8 items-center gap-4">
-            <Label className="text-left" htmlFor="language">
+          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-8 items-center sm:gap-4">
+            <Label
+              className="text-left md:col-span-1 col-span-2"
+              htmlFor="language"
+            >
               Language
             </Label>
             <select
-              className="select select-bordered w-full max-w-xs col-start-2 col-span-3 min-h-[2.5rem] h-[2.5rem]"
+              className="select select-bordered w-full max-w-xs sm:col-start-3 md:col-start-2 sm:col-span-7 col-span-2 min-h-[2.5rem] h-[2.5rem]"
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
             >
@@ -212,13 +217,16 @@ export default function Exercise() {
               <option value="italian">Italian</option>
             </select>
           </div>
-          <div className="grid grid-cols-8 items-center gap-4">
-            <Label className="text-left" htmlFor="situation">
+          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-8 items-center sm:gap-4">
+            <Label
+              className="text-left md:col-span-1 col-span-2"
+              htmlFor="situation"
+            >
               Situation
             </Label>
             <input
               type="text"
-              className="col-start-2 col-span-7 focus:outline-none px-3 py-2 border border-zinc-300 rounded-sm text-sm"
+              className="sm:col-start-3 md:col-start-2 sm:col-span-7 col-span-2 focus:outline-none px-3 py-2 border border-zinc-300 rounded-sm text-sm"
               placeholder="Optional (E.g. At the restaurant, On a vacation, etc.)"
               value={situation}
               onChange={(e) => setSituation(e.target.value)}
@@ -227,8 +235,8 @@ export default function Exercise() {
 
           {/* generate button */}
           {(phase === "first" || phase === "second") && (
-            <div className="grid grid-cols-8 items-center gap-4">
-              <div className="col-span-8 flex justify-end">
+            <div className="items-center gap-4">
+              <div className="flex">
                 <Button
                   className="mx-2 bg-blue-500 text-white"
                   onClick={generateVerbs}
@@ -247,14 +255,14 @@ export default function Exercise() {
               <h1 className="font-bold text-lg my-2">Exercise</h1>
               {/* verbs */}
               <div className="flex flex-col gap-4">
-                <Label className="text-left" htmlFor="verb">
+                <h2 className="text-left" htmlFor="verb">
                   Verbs{" "}
                   <span className="text-zinc-500 font-normal">
                     (Select any one of the following verbs to generate
                     sentences)
                   </span>
-                </Label>
-                <ul className="flex gap-3">
+                </h2>
+                <ul className="flex gap-3 flex-wrap">
                   {verbs.map((v) => {
                     return (
                       <li
@@ -285,22 +293,25 @@ export default function Exercise() {
                   const splittedSentence = s.split("_");
                   return (
                     <div
-                      className="grid grid-cols-8 items-center gap-4 my-8"
+                      className="grid sm:grid-cols-8 grid-rows-2 sm:grid-rows-1 sm:gap-4 mb-8 pt-4 border-t border-zinc-200 mt-4"
                       key={i}
                     >
-                      <Label className="text-left" htmlFor="sentence1">
-                        Sentence {i}
-                      </Label>
-                      <div className="flex col-start-2 col-span-7 items-center">
-                        <p>{splittedSentence[0]}</p>
+                      <h2
+                        className="text-left md:col-span-1 col-span-2 font-semibold"
+                        htmlFor="sentence"
+                      >
+                        {`Sentence ${i + 1}`}
+                      </h2>
+                      <div className="sm:col-start-3 md:col-start-2 sm:col-span-7 items-center">
+                        <p className="inline">{splittedSentence[0]}</p>
                         <input
                           type="text"
-                          className="border-b border-zinc-200 focus:outline-none focus:border-blue-300 text-center w-40 mx-2 text-blue-700"
+                          className="border-b border-zinc-200 focus:outline-none focus:border-blue-300 text-center w-40 mx-2 text-blue-700 inline"
                           maxLength={30}
                           value={answers[i]}
                           onChange={(e) => handleInputChange(e, i)}
                         />
-                        <p>{splittedSentence[1]}</p>
+                        <p className="inline">{splittedSentence[1]}</p>
                         {responses[i] &&
                           (responses[i].isVerbCorrect ? <Check /> : <Cancel />)}
                       </div>
@@ -342,7 +353,7 @@ export default function Exercise() {
                 return (
                   <li key={i} className="my-2">
                     <p>
-                      <span className="font-semibold">Sentence {i}: </span>{" "}
+                      <span className="font-semibold">Sentence {i + 1}: </span>{" "}
                       {res.explanation}
                     </p>
                   </li>
