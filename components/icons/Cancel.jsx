@@ -1,5 +1,5 @@
 import { MdCancel } from "react-icons/md";
 
 export default function Cancel() {
-  return <MdCancel color="red" size={25} className="mx-2" />;
+  return <MdCancel color="red" size={25} className="mx-2 inline" />;
 }
